@@ -12,4 +12,6 @@ public interface ReclamoRepository extends JpaRepository<Reclamo, Integer>{
 	
 	@Query("select r from Reclamo r where (estado = ?1) and (?2 is null or r.fechaCompra = ?2) and (?3 is -1 or r.cliente.idCliente = ?3) and (?4 is -1 or r.tipoReclamo.idTipoReclamo = ?4)")
 	public List<Reclamo> litarReclamoPorParametros(int estado, Date fCompra, int idCliente, int idTipo);
+	
+	public Reclamo findByIdReclamo(int cod);
 }

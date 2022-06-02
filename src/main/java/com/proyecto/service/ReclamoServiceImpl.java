@@ -30,4 +30,14 @@ public class ReclamoServiceImpl implements ReclamoService{
 		return repository.litarReclamoPorParametros(estado, fecha, idCliente, idTipo);
 	}
 
+	@Override
+	public Reclamo actualizarReclamo(Reclamo reclamo) {
+		return repository.save(reclamo);
+	}
+
+	@Override
+	public Reclamo buscarPorCodigo(int cod) {
+		return repository.findByIdReclamo(cod);
+	}
+
 }
