@@ -34,6 +34,18 @@ public class ProductoServiceImpl implements ProductoService {
 		return repository.listaproductoporparmetros(nombre, serie, idMarca, idPais, estado);
 	}
 
+	@Override
+	public Producto insetaractualizarproducto(Producto producto) {
+		// TODO Auto-generated method stub
+		return repository.save(producto);
+	}
+
+	@Override
+	public List<Producto> listaProductopornombre(String nombre) {
+		// TODO Auto-generated method stub
+		return repository.listaProductopornombre(nombre);
+	}
+
 	
 
 }

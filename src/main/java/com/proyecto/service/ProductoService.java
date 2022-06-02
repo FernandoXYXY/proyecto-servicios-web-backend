@@ -12,6 +12,10 @@ public interface ProductoService {
 	
 	public List<Producto> listaproductoporparmetros(String nombre, String serie, int idMarca, int idPais, int estado );
 	
+	public abstract Producto insetaractualizarproducto(Producto producto);
+	
+	public abstract List<Producto> listaProductopornombre(String nombre);
+	
 	
 	
 	
