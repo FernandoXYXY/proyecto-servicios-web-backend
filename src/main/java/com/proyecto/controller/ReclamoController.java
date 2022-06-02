@@ -12,6 +12,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -84,11 +85,14 @@ public class ReclamoController {
 		return ResponseEntity.ok(salida);
 	}
 	
-	@DeleteMapping
+	@DeleteMapping("/{idReclamo}")
 	@ResponseBody
-	public ResponseEntity<Map<String, Object>> eliminarReclamo(@RequestBody Reclamo obj){
+	public ResponseEntity<Map<String, Object>> eliminarReclamo(@PathVariable("idReclamo") int id){
 		Map<String, Object> salida = new HashMap<String, Object>();
 		try {
+			
+			Reclamo obj = serviceReclamo.buscarPorCodigo(id);
+			
 			obj.setEstado(0);
 			obj.setFechaRegistro(new Date());
 			Reclamo objSalida = serviceReclamo.actualizarReclamo(obj);
