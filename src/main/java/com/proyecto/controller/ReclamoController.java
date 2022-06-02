@@ -41,6 +41,12 @@ public class ReclamoController {
 		return ResponseEntity.ok(lista);
 	}
 	
+	@GetMapping("/listar")
+	@ResponseBody
+	public ResponseEntity<List<Reclamo>> listar(){
+		List<Reclamo> lista = serviceReclamo.listar(1);
+		return ResponseEntity.ok(lista);
+	}
 	
 	@PostMapping
 	@ResponseBody
