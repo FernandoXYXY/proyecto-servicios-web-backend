@@ -1,6 +1,7 @@
 package com.proyecto.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,5 +33,28 @@ public class MarcaServiceImpl implements MarcaService {
 		
 		return Repository.listaMarcaPorPais(nombre,descripcion,certificado,idPais,estado);
 	}
+
+	@Override
+	public Marca insertarActualizaMarca(Marca obj) {
+		return Repository.save(obj);
+	}
+
+	@Override
+	public void eliminaPorId(int idMarca) {
+		Repository.deleteById(idMarca);
+		
+	}
+
+	@Override
+	public Optional<Marca> listaMarcaPorId(int idMarca) {
+		return Repository.findById(idMarca);
+	}
+
+	@Override
+	public List<Marca> listaMarcaPorNombreLike(String nombre) {
+		return Repository.listaPorNombreLike(nombre);
+	}
+
+	
 
 }

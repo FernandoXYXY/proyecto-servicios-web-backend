@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+
 import com.proyecto.entidad.Marca;
 
 
@@ -16,6 +17,9 @@ public interface MarcaRepository extends JpaRepository<Marca, Integer>{
 			String nombre, String descripcion,String certificado, int idPais, int estado);
 	
 	
+	
+	@Query("select x from Marca x where x.nombre like ?1")
+	public List<Marca> listaPorNombreLike(String nombre);
 	
 
 }

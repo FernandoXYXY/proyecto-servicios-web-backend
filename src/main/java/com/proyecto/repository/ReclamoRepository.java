@@ -14,4 +14,6 @@ public interface ReclamoRepository extends JpaRepository<Reclamo, Integer>{
 	public List<Reclamo> litarReclamoPorParametros(int estado, Date fCompra, int idCliente, int idTipo);
 	
 	public Reclamo findByIdReclamo(int cod);
+	
+	public List<Reclamo> findByEstado(int estado);
 }
