@@ -27,7 +27,7 @@ import com.proyecto.util.Constantes;
 @RequestMapping("/url/cliente")
 @CrossOrigin(origins = AppSettings.URL_CROSS_ORIGIN)
 public class ClienteController {
-
+	/*aea manito*/
 	@Autowired
 	private ClienteService clienteService;
 	
