@@ -13,7 +13,7 @@ public interface MarcaService {
 	public abstract void eliminaPorId(int idMarca);
 	public abstract Optional<Marca> listaMarcaPorId(int idMarca);
 	public List<Marca> listaMarca();
-	//public abstract List<Marca> listaMarcaPorNombreLike(String nombre);
+    public abstract List<Marca> listaMarcaPorNombreLike(String nombre);
 	
 	//Para la consulta
 	public abstract List<Marca> listaMarcaPorPais(

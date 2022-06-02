@@ -18,8 +18,8 @@ public interface MarcaRepository extends JpaRepository<Marca, Integer>{
 	
 	
 	
-	//@Query("select x from Docente x where x.nombre like ?1")
-	//public List<Marca> listaPorNombreLike(String nombre);
+	@Query("select x from Marca x where x.nombre like ?1")
+	public List<Marca> listaPorNombreLike(String nombre);
 	
 
 }

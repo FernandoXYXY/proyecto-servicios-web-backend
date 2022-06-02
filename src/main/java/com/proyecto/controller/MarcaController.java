@@ -96,6 +96,21 @@ public class MarcaController {
 		return ResponseEntity.ok(salida);
 	}
 	
+	@GetMapping("/listaMarcaPorNombreLike/{nom}")
+	@ResponseBody
+	public ResponseEntity<List<Marca>> listaMarcaPorNombreLike(@PathVariable("nom") String nom) {
+		List<Marca> lista  = null;
+		try {
+			if (nom.equals("todos")) {
+				lista = marcaService.listaMarcaPorNombreLike("%");
+			}else {
+				lista = marcaService.listaMarcaPorNombreLike("%" + nom + "%");	
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ResponseEntity.ok(lista);
+	}
 
 	@PostMapping("/registraMarca")
 	@ResponseBody
