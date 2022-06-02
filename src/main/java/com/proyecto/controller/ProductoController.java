@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.util.Constantes;
 import com.proyecto.entidad.Producto;
+import com.proyecto.entidad.Reclamo;
 import com.proyecto.entidad.Sede;
 import com.proyecto.service.ProductoService;
 import com.proyecto.util.AppSettings;
@@ -134,8 +136,10 @@ public class ProductoController {
 
 	@PutMapping("/actualizaProducto")
 	@ResponseBody
-	public ResponseEntity<Map<String, Object>> actualizaDocente(@RequestBody Producto obj) {
+	public ResponseEntity<Map<String, Object>> actualizaProducto(@RequestBody Producto obj) {
 		Map<String, Object> salida = new HashMap<>();
+		obj.setEstado(1);
+		obj.setFechaRegistro(new Date());
 		try {
 			Producto objSalida =  productoservice.insetaractualizarproducto(obj);
 			if (objSalida == null) {
@@ -147,6 +151,31 @@ public class ProductoController {
 			e.printStackTrace();
 			salida.put("mensaje", Constantes.MENSAJE_ACT_ERROR);
 		}
+		return ResponseEntity.ok(salida);
+	}
+	
+	
+	@DeleteMapping("/eliminarProducto/{idProducto}")
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> eliminarProducto(@PathVariable("idProducto") int cod){
+		Map<String, Object> salida = new HashMap<String, Object>();
+		try {
+			
+			Producto obj = productoservice.findByIdProducto(cod);
+			
+			obj.setEstado(0);
+			obj.setFechaRegistro(new Date());
+			Producto objSalida = productoservice.insetaractualizarproducto(obj);
+			if(objSalida == null) {
+				salida.put("mensaje", "Ocurrio un error, no se elimino");
+			}else {
+				salida.put("mensaje", "Se elimino correctamente");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			salida.put("mensaje", "Opps! Algo salio mal, no se elimino. Consulte con soporte");
+		}
+		
 		return ResponseEntity.ok(salida);
 	}
 	

@@ -16,6 +16,8 @@ public interface ProductoService {
 	
 	public abstract List<Producto> listaProductopornombre(String nombre);
 	
+	public abstract Producto findByIdProducto(int cod);
+	
 	
 	
 	

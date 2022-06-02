@@ -17,10 +17,11 @@ public interface ProductoRespository extends JpaRepository<Producto, Integer>{
  
 		
 	
-	@Query("select p from Producto p where p.nombre like ?1")
+	@Query("select p from Producto p where( p.nombre like ?1) and p.estado = 1")
 	public List<Producto> listaProductopornombre(String nombre);
 	
 	
+	public Producto findByIdProducto(int cod);
 	
 	
 	
