@@ -10,13 +10,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+
+import com.proyecto.util.Constantes;
 import com.proyecto.entidad.Producto;
 import com.proyecto.entidad.Sede;
 import com.proyecto.service.ProductoService;
@@ -88,5 +92,67 @@ public class ProductoController {
 		
 		return ResponseEntity.ok(salida);
 	}
+	
+	
+	/*****************************************************************************************************************/
+	
+	
+	@GetMapping("/listarproductopornombre/{nombre}")
+	@ResponseBody
+	public ResponseEntity<List<Producto>> listaProductopornombre(@PathVariable("nombre") String nombre) {
+		List<Producto> lista  = null;
+		try {
+			if (nombre.equals("todos")) {
+				lista = productoservice.listaProductopornombre("%");
+			}else {
+				lista = productoservice.listaProductopornombre("%" + nombre + "%");	
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ResponseEntity.ok(lista);
+	}
+	
+	@PostMapping("/registraProducto")
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> insetarProducto(@RequestBody Producto obj) {
+		Map<String, Object> salida = new HashMap<>();
+		try {
+			obj.setIdProducto(0);
+			Producto objSalida =  productoservice.insetaractualizarproducto(obj);
+			if (objSalida == null) {
+				salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
+			} else {
+				salida.put("mensaje", Constantes.MENSAJE_REG_EXITOSO);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
+		}
+		return ResponseEntity.ok(salida);
+	}
+
+	@PutMapping("/actualizaProducto")
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> actualizaDocente(@RequestBody Producto obj) {
+		Map<String, Object> salida = new HashMap<>();
+		try {
+			Producto objSalida =  productoservice.insetaractualizarproducto(obj);
+			if (objSalida == null) {
+				salida.put("mensaje", Constantes.MENSAJE_ACT_ERROR);
+			} else {
+				salida.put("mensaje", Constantes.MENSAJE_ACT_EXITOSO);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			salida.put("mensaje", Constantes.MENSAJE_ACT_ERROR);
+		}
+		return ResponseEntity.ok(salida);
+	}
+	
+	
+	
+	
+	
 	
 }
