@@ -50,11 +50,11 @@ public class MarcaServiceImpl implements MarcaService {
 		return Repository.findById(idMarca);
 	}
 
-	
+	@Override
+	public List<Marca> listaMarcaPorNombreLike(String nombre) {
+		return Repository.listaPorNombreLike(nombre);
+	}
 
-	//@Override
-	//public List<Marca> listaMarcaPorNombreLike(String nombre) {
-	//	return Repository.listaPorNombreLike(nombre);
-	//}
+	
 
 }
