@@ -30,6 +30,16 @@ public class ClienteServiceImpl implements ClienteService {
 			
 			return repository.listarClientes(nombres,apellidos,dni,correo,direccion,idUbigeo,estado);
 		}
+	/*crud*/
+	@Override
+	public Cliente insertaActualizaCliente(Cliente obj) {
+		return repository.save(obj);
+		
+	}
+	@Override
+	public List<Cliente> listaClientePorNombre(String nombres) {
+		return repository.listaClientePorNombre(nombres);
+	}
 
 
 }

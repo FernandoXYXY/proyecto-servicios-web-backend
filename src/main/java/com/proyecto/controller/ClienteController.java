@@ -11,7 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -86,5 +88,62 @@ public class ClienteController {
 		}
 		return ResponseEntity.ok(salida);
 	}
+	
+	/*crud*/
+	
+	@GetMapping("/listarclientepornombre/{filtro}")
+	@ResponseBody
+	public ResponseEntity<List<Cliente>> listaClientePorNombre(@PathVariable("filtro") String filtro) {
+		List<Cliente> lista  = null;
+		try {
+			if (filtro.equals("todos")) {
+				lista = clienteService.listaClientePorNombre("%");
+			}else {
+				lista = clienteService.listaClientePorNombre("%" + filtro + "%");	
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ResponseEntity.ok(lista);
+	}
+	
+	@PostMapping("/registraCliente")
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> insertaActualizaCliente(@RequestBody Cliente obj) {
+		Map<String, Object> salida = new HashMap<>();
+		try {
+			obj.setIdCliente(0);
+			Cliente objSalida =  clienteService.insertaActualizaCliente(obj);
+			if (objSalida == null) {
+				salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
+			} else {
+				salida.put("mensaje", Constantes.MENSAJE_REG_EXITOSO);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
+		}
+		return ResponseEntity.ok(salida);
+	}
 
+	@PutMapping("/actualizaCliente")
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> actualizaDocente(@RequestBody Cliente obj) {
+		Map<String, Object> salida = new HashMap<>();
+		try {
+			Cliente objSalida =  clienteService.insertaActualizaCliente(obj);
+			if (objSalida == null) {
+				salida.put("mensaje", Constantes.MENSAJE_ACT_ERROR);
+			} else {
+				salida.put("mensaje", Constantes.MENSAJE_ACT_EXITOSO);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			salida.put("mensaje", Constantes.MENSAJE_ACT_ERROR);
+		}
+		return ResponseEntity.ok(salida);
+	}
+	
+	
+	
 }
