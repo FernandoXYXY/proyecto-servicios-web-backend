@@ -46,6 +46,12 @@ public class ProductoServiceImpl implements ProductoService {
 		return repository.listaProductopornombre(nombre);
 	}
 
+	@Override
+	public Producto findByIdProducto(int cod) {
+		// TODO Auto-generated method stub
+		return repository.findByIdProducto(cod);
+	}
+
 	
 
 }
