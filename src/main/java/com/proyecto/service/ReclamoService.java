@@ -8,6 +8,7 @@ import com.proyecto.entidad.Reclamo;
 public interface ReclamoService {
 	
 	public abstract List<Reclamo> listarTodosReclamo();
+	public abstract List<Reclamo> listar(int estado);
 	public abstract Reclamo insertarReclamo(Reclamo reclamo);
 	public abstract Reclamo actualizarReclamo(Reclamo reclamo);
 	public abstract Reclamo buscarPorCodigo(int cod);

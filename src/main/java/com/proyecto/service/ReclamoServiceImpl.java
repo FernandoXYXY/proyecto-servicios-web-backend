@@ -40,4 +40,9 @@ public class ReclamoServiceImpl implements ReclamoService{
 		return repository.findByIdReclamo(cod);
 	}
 
+	@Override
+	public List<Reclamo> listar(int estado) {
+		return repository.findByEstado(estado);
+	}
+
 }
