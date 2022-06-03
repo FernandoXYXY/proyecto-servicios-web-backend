@@ -134,7 +134,7 @@ public class ProductoController {
 		return ResponseEntity.ok(salida);
 	}
 
-	@PutMapping("/actualizaProducto")
+	@PutMapping
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> actualizaProducto(@RequestBody Producto obj) {
 		Map<String, Object> salida = new HashMap<>();
