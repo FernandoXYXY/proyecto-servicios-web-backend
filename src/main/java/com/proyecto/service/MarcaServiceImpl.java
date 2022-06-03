@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.proyecto.entidad.Marca;
+import com.proyecto.entidad.Producto;
 import com.proyecto.repository.MarcaRepository;
 
 @Service
@@ -15,17 +16,19 @@ public class MarcaServiceImpl implements MarcaService {
 	@Autowired
 	private MarcaRepository Repository;
 
-	@Override
-	public List<Marca> listaMarca() {
-		return Repository.findAll();
-	}
-
+	
 	@Override
 	public Marca insertaActualizaMarca(Marca obj) {
 		
 		return Repository.save(obj);
 	}
+	
+	@Override
+	public List<Marca> listaMarca() {
+		return Repository.findAll();
+	}
 
+	
 	@Override
 	public List<Marca> listaMarcaPorPais(String nombre, String descripcion, String certificado, int idPais,
 			int estado) {
@@ -34,25 +37,23 @@ public class MarcaServiceImpl implements MarcaService {
 		return Repository.listaMarcaPorPais(nombre,descripcion,certificado,idPais,estado);
 	}
 
-	@Override
-	public Marca insertarActualizaMarca(Marca obj) {
-		return Repository.save(obj);
-	}
+	
 
-	@Override
-	public void eliminaPorId(int idMarca) {
-		Repository.deleteById(idMarca);
-		
-	}
-
-	@Override
-	public Optional<Marca> listaMarcaPorId(int idMarca) {
-		return Repository.findById(idMarca);
-	}
+	
 
 	@Override
 	public List<Marca> listaMarcaPorNombreLike(String nombre) {
 		return Repository.listaPorNombreLike(nombre);
+	}
+
+	@Override
+	public Marca findByIdMarca(int cod) {
+		return Repository.findByIdMarca(cod);
+	}
+
+	@Override
+	public Marca insertaractualizarmarca(Marca marca) {
+		return Repository.save(marca);
 	}
 
 	

@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 
 import com.proyecto.entidad.Marca;
+import com.proyecto.entidad.Producto;
 
 
 public interface MarcaRepository extends JpaRepository<Marca, Integer>{
@@ -18,8 +19,11 @@ public interface MarcaRepository extends JpaRepository<Marca, Integer>{
 	
 	
 	
-	@Query("select x from Marca x where x.nombre like ?1")
+	@Query("select x from Marca x where( x.nombre like ?1) and x.estado = 1")
 	public List<Marca> listaPorNombreLike(String nombre);
+	
+	
+	public Marca findByIdMarca(int cod);
 	
 
 }

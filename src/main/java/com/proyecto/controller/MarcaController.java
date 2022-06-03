@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import com.proyecto.entidad.Marca;
+import com.proyecto.entidad.Producto;
 import com.proyecto.entidad.Proveedor;
 import com.proyecto.service.MarcaService;
 import com.proyecto.util.AppSettings;
@@ -118,9 +119,8 @@ public class MarcaController {
 		Map<String, Object> salida = new HashMap<>();
 		try {
 			obj.setIdMarca(0);
-			obj.setFechaRegistro(new Date());
-			obj.setEstado(1);
-			Marca objSalida =  marcaService.insertaActualizaMarca(obj);
+			
+			Marca objSalida =  marcaService.insertaractualizarmarca(obj);
 			if (objSalida == null) {
 				salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
 			} else {
@@ -133,12 +133,15 @@ public class MarcaController {
 		return ResponseEntity.ok(salida);
 	}
 
-	@PutMapping("/actualizaMarca")
+	@PutMapping
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> actualizaMarca(@RequestBody Marca obj) {
 		Map<String, Object> salida = new HashMap<>();
+		obj.setEstado(1);
+		obj.setFechaRegistro(new Date());
+	
 		try {
-			Marca objSalida =  marcaService.insertaActualizaMarca(obj);
+			Marca objSalida =  marcaService.insertaractualizarmarca(obj);
 			if (objSalida == null) {
 				salida.put("mensaje", Constantes.MENSAJE_ACT_ERROR);
 			} else {
@@ -151,24 +154,31 @@ public class MarcaController {
 		return ResponseEntity.ok(salida);
 	}
 	
-	@DeleteMapping("/{id}")
-	@ResponseBody
-	public ResponseEntity<HashMap<String, Object>> eliminaAlumno(@PathVariable int id) {
-		HashMap<String, Object> salida = new HashMap<String, Object>();
-		try {
-			Optional<Marca> optional =  marcaService.listaMarcaPorId(id);
-			if (optional.isPresent()) {
-				marcaService.eliminaPorId(id);
-				salida.put("mensaje", "Eliminación exitosa");
-			}else {
-				salida.put("mensaje", "El ID no existe : " + id);
+		@DeleteMapping("/eliminarMarca/{idMarca}")
+		@ResponseBody
+		public ResponseEntity<Map<String, Object>> eliminarMarca(@PathVariable("idMarca") int cod){
+			Map<String, Object> salida = new HashMap<String, Object>();
+			try {
+				
+				Marca obj = marcaService.findByIdMarca(cod);
+				
+				obj.setEstado(0);
+				obj.setFechaRegistro(new Date());
+				Marca objSalida = marcaService.insertaractualizarmarca(obj);
+				if(objSalida == null) {
+					salida.put("mensaje", "Ocurrio un error, no se elimino");
+				}else {
+					salida.put("mensaje", "Se elimino correctamente");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				salida.put("mensaje", "Opps! Algo salio mal, no se elimino. Consulte con soporte");
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			salida.put("mensaje", "Error en la eliminación " + e.getMessage());
+			
+			return ResponseEntity.ok(salida);
 		}
-		return ResponseEntity.ok(salida);
-	}
+		
+		
 	
 	
 	
