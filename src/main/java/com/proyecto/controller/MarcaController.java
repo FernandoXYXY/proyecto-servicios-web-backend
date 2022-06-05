@@ -119,8 +119,10 @@ public class MarcaController {
 		Map<String, Object> salida = new HashMap<>();
 		try {
 			obj.setIdMarca(0);
+			obj.setFechaRegistro(new Date());
+			obj.setEstado(1);
 			
-			Marca objSalida =  marcaService.insertaractualizarmarca(obj);
+			Marca objSalida =  marcaService.insertaMarca(obj);
 			if (objSalida == null) {
 				salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
 			} else {
@@ -133,19 +135,20 @@ public class MarcaController {
 		return ResponseEntity.ok(salida);
 	}
 
-	@PutMapping
+	@PutMapping("/actualizaMarca")
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> actualizaMarca(@RequestBody Marca obj) {
 		Map<String, Object> salida = new HashMap<>();
-		obj.setEstado(1);
-		obj.setFechaRegistro(new Date());
+		
 	
 		try {
-			Marca objSalida =  marcaService.insertaractualizarmarca(obj);
+			
+			
+			Marca objSalida =  marcaService.insertaActualizaMarca(obj);
 			if (objSalida == null) {
 				salida.put("mensaje", Constantes.MENSAJE_ACT_ERROR);
 			} else {
-				salida.put("mensaje", Constantes.MENSAJE_ACT_EXITOSO);
+				salida.put("mensaje","Se actualizo Correctamente");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -164,7 +167,7 @@ public class MarcaController {
 				
 				obj.setEstado(0);
 				obj.setFechaRegistro(new Date());
-				Marca objSalida = marcaService.insertaractualizarmarca(obj);
+				Marca objSalida = marcaService.insertaActualizaMarca(obj);
 				if(objSalida == null) {
 					salida.put("mensaje", "Ocurrio un error, no se elimino");
 				}else {

@@ -16,18 +16,15 @@ public class MarcaServiceImpl implements MarcaService {
 	@Autowired
 	private MarcaRepository Repository;
 
-	
-	@Override
-	public Marca insertaActualizaMarca(Marca obj) {
-		
-		return Repository.save(obj);
-	}
-	
 	@Override
 	public List<Marca> listaMarca() {
 		return Repository.findAll();
 	}
-
+	
+	@Override
+	public Marca insertaMarca(Marca obj) {
+		return Repository.save(obj);
+	}
 	
 	@Override
 	public List<Marca> listaMarcaPorPais(String nombre, String descripcion, String certificado, int idPais,
@@ -36,26 +33,26 @@ public class MarcaServiceImpl implements MarcaService {
 		
 		return Repository.listaMarcaPorPais(nombre,descripcion,certificado,idPais,estado);
 	}
-
 	
-
 	
 
 	@Override
 	public List<Marca> listaMarcaPorNombreLike(String nombre) {
 		return Repository.listaPorNombreLike(nombre);
 	}
-
+	
+	@Override
+	public Marca insertaActualizaMarca(Marca marca) {
+		return Repository.save(marca);
+	}
+	
+	
 	@Override
 	public Marca findByIdMarca(int cod) {
 		return Repository.findByIdMarca(cod);
 	}
 
-	@Override
-	public Marca insertaractualizarmarca(Marca marca) {
-		return Repository.save(marca);
-	}
-
+	
 	
 
 }
