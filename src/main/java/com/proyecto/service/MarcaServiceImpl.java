@@ -45,12 +45,23 @@ public class MarcaServiceImpl implements MarcaService {
 	public Marca insertaActualizaMarca(Marca marca) {
 		return Repository.save(marca);
 	}
-	
-	
+
 	@Override
-	public Marca findByIdMarca(int cod) {
-		return Repository.findByIdMarca(cod);
+	public void eliminaMarca(int id) {
+		Repository.deleteById(id);
+		
 	}
+
+	@Override
+	public Optional<Marca> buscaMarca(int id) {
+		return Repository.findById(id);
+	}
+	
+	
+	//@Override
+	//public Marca findByIdMarca(int cod) {
+	//	return Repository.findByIdMarca(cod);
+	//}
 
 	
 	
