@@ -8,14 +8,15 @@ import com.proyecto.entidad.Producto;
 
 public interface MarcaService {
 
-
-	public Marca insertaActualizaMarca(Marca obj);
+	public abstract List<Marca> listaMarca();
+	public Marca insertaMarca(Marca obj);
 	
-	public List<Marca> listaMarca();
+	public abstract List<Marca> listaMarcaPorPais(
+			String nombre, String descripcion,String certificado, 
+			int idPais, int estado);
 	
-	public abstract List<Marca> listaMarcaPorPais(String nombre, String descripcion,String certificado, int idPais, int estado);
+	public Marca insertaActualizaMarca(Marca marca);
 	
-	public Marca insertaractualizarmarca(Marca marca);
 	
     public abstract List<Marca> listaMarcaPorNombreLike(String nombre);
     
