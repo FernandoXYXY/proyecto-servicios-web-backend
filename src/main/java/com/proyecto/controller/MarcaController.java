@@ -157,31 +157,34 @@ public class MarcaController {
 		return ResponseEntity.ok(salida);
 	}
 	
-		@DeleteMapping("/eliminarMarca/{idMarca}")
+	
+	
+		
+		@DeleteMapping("/eliminaMarca/{id}")
 		@ResponseBody
-		public ResponseEntity<Map<String, Object>> eliminarMarca(@PathVariable("idMarca") int cod){
-			Map<String, Object> salida = new HashMap<String, Object>();
+		public ResponseEntity<Map<String, Object>> eliminaMarca(@PathVariable("id")int id) {
+			Map<String, Object> salida = new HashMap<>();
 			try {
 				
-				Marca obj = marcaService.findByIdMarca(cod);
+				Optional<Marca> opt = marcaService.buscaMarca(id);
 				
-				obj.setEstado(0);
-				obj.setFechaRegistro(new Date());
-				Marca objSalida = marcaService.insertaActualizaMarca(obj);
-				if(objSalida == null) {
-					salida.put("mensaje", "Ocurrio un error, no se elimino");
+				if (opt.isPresent()) {
+					marcaService.eliminaMarca(id);
+					Optional<Marca> optMarca = marcaService.buscaMarca(id);
+					if (optMarca.isEmpty()) {
+						salida.put("mensaje", Constantes.MENSAJE_ELI_EXITOSO);
+					} else {
+						salida.put("mensaje", Constantes.MENSAJE_ELI_ERROR);
+					}
 				}else {
-					salida.put("mensaje", "Se elimino correctamente");
+					salida.put("mensaje", Constantes.MENSAJE_ELI_NO_EXISTE_ID);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				salida.put("mensaje", "Opps! Algo salio mal, no se elimino. Consulte con soporte");
+				salida.put("mensaje", Constantes.MENSAJE_ELI_ERROR);
 			}
-			
 			return ResponseEntity.ok(salida);
 		}
-		
-		
 	
 	
 	

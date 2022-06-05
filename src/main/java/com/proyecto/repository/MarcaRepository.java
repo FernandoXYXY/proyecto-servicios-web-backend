@@ -23,7 +23,9 @@ public interface MarcaRepository extends JpaRepository<Marca, Integer>{
 	public List<Marca> listaPorNombreLike(String nombre);
 	
 	
-	public Marca findByIdMarca(int cod);
+	//public Marca findByIdMarca(int cod);
+	
+	
 	
 
 }
