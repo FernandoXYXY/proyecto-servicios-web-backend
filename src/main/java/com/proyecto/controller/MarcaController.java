@@ -55,7 +55,7 @@ public class MarcaController {
 		try {
 			obj.setFechaRegistro(new Date());
 			obj.setEstado(1);
-			 Marca objSalida = marcaService.insertaActualizaMarca(obj);
+			 Marca objSalida = marcaService.insertaMarca(obj);
 			if (objSalida == null) {
 				salida.put("mensaje", "No se registró, consulte con el administrador.");
 			}else {
